@@ -1,0 +1,26 @@
+{
+  "name": "wdi-project-4-backend-hexhex",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tom Lee <d.dorkblue@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.3",
+    "express": "^4.15.3",
+    "firebase": "^4.0.0",
+    "nodemon": "^1.11.0"
+  },
+  "standard": {
+    "globals": [
+      "$",
+      "alert"
+    ]
+  },
+  "devDependencies": {}
+}
