@@ -2,10 +2,15 @@ const router = require('express').Router()
 const brochureController = require('../controllers/brochureController')
 
 router.route('/')
-.get(brochureController.index)
+// .get(brochureController.index)
 .post(brochureController.create)
 
-router.route('/:id')
+// get all brochures under user
+router.route('/:user_id')
+.get(brochureController.index)
+
+// get specific brochure under user
+router.route('/:user_id/:id')
 .get(brochureController.show)
 .delete(brochureController.destroy)
 

@@ -14,7 +14,7 @@ const app = express()
 const brochureAction = {
   index: (req, res, next) => {
     console.log('get all brochures req accepted!')
-    const allBrochures = database.ref('/brochures')
+    const allBrochures = database.ref(`/brochures/${req.params.user_id}`)
 
     allBrochures.once('value', (snapshot) => {
       res.json(snapshot.val())
@@ -22,8 +22,8 @@ const brochureAction = {
   },
   create: (req, res, next) => {
     console.log('create new brochure req accepted!')
-    console.log(req.body)
-    const reqData = req.body
+    console.log(req)
+    const reqData = req.body.file
 
     // create new description
     const newDescriptionKey = database.ref('/descriptions').push({content: ''}).key
@@ -35,17 +35,28 @@ const brochureAction = {
     reqData['details_key'] = newDetailsKey
     console.log('new details created', newDetailsKey)
 
+    // create new details
+    const newBannerKey = database.ref('/banner').push({url: ''}).key
+    reqData['banner_key'] = newBannerKey
+    console.log('new banner created', newBannerKey)
+
     // create new brochure
-    const newDraftKey = database.ref('/brochures').push(reqData).key
-    console.log('new draft created')
+    const newDraftKey = database.ref(`/brochures/${req.body.user}`).push(reqData).key
+    console.log('new draft created', newDraftKey)
 
     // respond to request
-    database.ref('/brochures/' + newDraftKey).once('value', (snapshot) => {
+    database.ref(`/brochures/${req.body.user}`).child(newDraftKey).once('value', (snapshot) => {
       res.json({
         data: snapshot.val(),
         key: newDraftKey
       })
     })
+    // database.ref('/brochures/' + newDraftKey).once('value', (snapshot) => {
+    //   res.json({
+    //     data: snapshot.val(),
+    //     key: newDraftKey
+    //   })
+    // })
   },
   update: (req, res, next) => {
 
@@ -54,7 +65,7 @@ const brochureAction = {
     console.log(req.params.id)
     let brochureData = {}
 
-    database.ref(`/brochures/${req.params.id}`)
+    database.ref(`/brochures/${req.params.user_id}/${req.params.id}`)
     .once('value')
     .then(function (snapshot) {
       console.log('snapshot', snapshot.val())
@@ -67,9 +78,11 @@ const brochureAction = {
     console.log('delete params', req.params)
     console.log('delete body', req.body)
 
-    database.ref(`/brochures/${req.params.id}`).remove()
+    database.ref(`/brochures/${req.params.user_id}/${req.params.id}`).remove()
     database.ref(`/descriptions/${req.body.descriptions_key}`).remove()
     database.ref(`/details/${req.body.details_key}`).remove()
+    database.ref(`/banner/${req.body.banner_key}`).remove()
+
     res.json({deleted: true})
   }
 }
