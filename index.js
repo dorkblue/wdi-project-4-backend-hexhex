@@ -17,13 +17,12 @@ const pageRouter = require('./routers/pageRouter')
 app.use('/', pageRouter)
 
 // description route setups
-const authRouter = require('./routers/authRouter')
-app.use('/auth', authRouter)
+const userRouter = require('./routers/userRouter')
+app.use('/users', userRouter)
 
 // description route setups
 const descriptionRouter = require('./routers/descriptionRouter')
 app.use('/descriptions', descriptionRouter)
-app.use('/auth', authRouter)
 
 // banner route setups
 const bannerRouter = require('./routers/bannerRouter')
