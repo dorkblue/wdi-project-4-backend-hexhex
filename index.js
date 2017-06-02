@@ -16,7 +16,7 @@ app.use(bodyParser.json())
 const pageRouter = require('./routers/pageRouter')
 app.use('/', pageRouter)
 
-// description route setups
+// user route setups
 const userRouter = require('./routers/userRouter')
 app.use('/users', userRouter)
 
@@ -32,9 +32,13 @@ app.use('/banner', bannerRouter)
 const detailRouter = require('./routers/detailRouter')
 app.use('/details', detailRouter)
 
-// detail route setups
+// carousel route setups
 const carouselRouter = require('./routers/carouselRouter')
 app.use('/carousel', carouselRouter)
+
+// location route setups
+const locationRouter = require('./routers/locationRouter')
+app.use('/location', locationRouter)
 
 // brochure route setups
 const brochureRouter = require('./routers/brochureRouter')
