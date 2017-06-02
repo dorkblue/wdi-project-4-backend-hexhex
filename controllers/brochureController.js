@@ -40,6 +40,14 @@ const brochureAction = {
     reqData['banner_key'] = newBannerKey
     console.log('new banner created', newBannerKey)
 
+    // create new details
+    for (let i = 0; i < 6; i++) {
+      const newCarouselPicKey = database.ref(`/carouselpic`)
+      .push({url: ''}).key
+      reqData[`carousel${i}_key`] = newCarouselPicKey
+      console.log('new banner created', newCarouselPicKey)
+    }
+
     // create new brochure
     const newDraftKey = database.ref(`/brochures/${req.body.user}`).push(reqData).key
     console.log('new draft created', newDraftKey)

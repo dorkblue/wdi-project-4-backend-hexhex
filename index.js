@@ -32,6 +32,10 @@ app.use('/banner', bannerRouter)
 const detailRouter = require('./routers/detailRouter')
 app.use('/details', detailRouter)
 
+// detail route setups
+const carouselRouter = require('./routers/carouselRouter')
+app.use('/carousel', carouselRouter)
+
 // brochure route setups
 const brochureRouter = require('./routers/brochureRouter')
 app.use('/brochures', brochureRouter)
