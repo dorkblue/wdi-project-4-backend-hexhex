@@ -40,6 +40,11 @@ const brochureAction = {
     reqData['banner_key'] = newBannerKey
     console.log('new banner created', newBannerKey)
 
+    // create new map
+    const newLocationKey = database.ref(`/location`).push({lat: 1.2800945, lng: 103.85094909999998}).key
+    reqData['location_key'] = newLocationKey
+    console.log('new location created', newLocationKey)
+
     // create new brochure
     const newDraftKey = database.ref(`/brochures/${req.body.user}`).push(reqData).key
     console.log('new draft created', newDraftKey)
